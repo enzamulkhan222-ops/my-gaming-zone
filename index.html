@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MY GAMING ZONE 3.0</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#0b1020;color:#fff;font-family:Arial,sans-serif;text-align:center}
+header{padding:23px 10px;background:#171e38;border-bottom:2px solid #00e6c3;color:#00f5d4;font-size:25px;font-weight:bold}
+.hero{padding:22px 12px}
+.hero p{color:#bdc7df}
+.games{display:grid;grid-template-columns:1fr;gap:16px;padding:10px 16px;max-width:520px;margin:auto}
+.card{background:#171e38;border:1px solid #303b60;border-radius:16px;padding:20px 14px;box-shadow:0 5px 18px #0005}
+.card h3{font-size:21px;margin:8px}
+.card p{color:#c7d0e6}
+button{border:0;border-radius:9px;padding:12px 17px;margin:5px;background:#00dfb8;color:#07151a;font-size:16px;font-weight:bold;cursor:pointer}
+.secondary{background:#384565;color:#fff}
+.result{color:#00f5d4;min-height:26px;font-weight:bold}
+.score{color:#00f5d4;font-size:21px}
+input{width:100px;padding:12px;border-radius:8px;border:1px solid #647398;font-size:18px;text-align:center}
+footer{padding:24px;color:#8895b5}
+</style>
+</head>
+<body>
+<header>🎮 MY GAMING ZONE 3.0</header>
+<section class="hero"><h2>Welcome, Gamer! 🚀</h2><p>Choose a game and challenge yourself.</p></section>
+<main class="games">
+<section class="card"><h3>🎯 Tap Challenge</h3><p>Tap the button and increase your score!</p><div class="score" id="tapScore">Score: 0</div><div id="tapBest">🏆 High Score: 0</div><button onclick="tapPoint()">TAP 🎯</button><button class="secondary" onclick="resetTap()">RESET</button></section>
+<section class="card"><h3>🧠 Number Guess</h3><p>Guess a secret number from 1 to 20.</p><input id="guessInput" type="number" min="1" max="20" placeholder="1–20"><br><button onclick="checkGuess()">GUESS</button><button class="secondary" onclick="newGuess()">NEW GAME</button><div class="result" id="guessResult">Make your first guess!</div><div id="guessCount">Attempts: 0</div></section>
+<section class="card"><h3>✊ Rock Paper Scissors</h3><p>Choose your move against the computer.</p><button onclick="playRPS('Rock')">✊ Rock</button><button onclick="playRPS('Paper')">✋ Paper</button><button onclick="playRPS('Scissors')">✌️ Scissors</button><div class="result" id="rpsResult">Ready to play?</div><div id="rpsScore">You: 0 | Computer: 0</div><button class="secondary" onclick="resetRPS()">RESET SCORE</button></section>
+</main><footer>Keep playing. Keep improving! 🎮</footer>
+<script>
+let taps=0,best=0;try{best=Number(localStorage.getItem('mgz3Best'))||0}catch(e){}
+document.getElementById('tapBest').textContent='🏆 High Score: '+best;
+function tapPoint(){taps++;document.getElementById('tapScore').textContent='Score: '+taps;if(taps>best){best=taps;document.getElementById('tapBest').textContent='🏆 High Score: '+best;try{localStorage.setItem('mgz3Best',String(best))}catch(e){}}}
+function resetTap(){taps=0;document.getElementById('tapScore').textContent='Score: 0'}
+let secret=Math.floor(Math.random()*20)+1,attempts=0,finished=false;
+function checkGuess(){if(finished){document.getElementById('guessResult').textContent='Press NEW GAME to play again.';return}const input=document.getElementById('guessInput');const n=Number(input.value);if(input.value.trim()===''||!Number.isInteger(n)||n<1||n>20){document.getElementById('guessResult').textContent='Enter a whole number from 1 to 20.';return}attempts++;document.getElementById('guessCount').textContent='Attempts: '+attempts;if(n===secret){document.getElementById('guessResult').textContent='🎉 Correct! You won in '+attempts+' tries!';finished=true}else if(n<secret){document.getElementById('guessResult').textContent='📈 Too low! Try a higher number.'}else{document.getElementById('guessResult').textContent='📉 Too high! Try a lower number.'}}
+function newGuess(){secret=Math.floor(Math.random()*20)+1;attempts=0;finished=false;document.getElementById('guessInput').value='';document.getElementById('guessResult').textContent='New number chosen. Good luck!';document.getElementById('guessCount').textContent='Attempts: 0'}
+let you=0,computer=0;
+function playRPS(move){const options=['Rock','Paper','Scissors'];const cpu=options[Math.floor(Math.random()*3)];let msg='';if(move===cpu){msg='🤝 Draw! Both chose '+move+'.'}else if((move==='Rock'&&cpu==='Scissors')||(move==='Paper'&&cpu==='Rock')||(move==='Scissors'&&cpu==='Paper')){you++;msg='🎉 You win! Computer chose '+cpu+'.'}else{computer++;msg='😅 Computer wins! It chose '+cpu+'.'}document.getElementById('rpsResult').textContent=msg;document.getElementById('rpsScore').textContent='You: '+you+' | Computer: '+computer}
+function resetRPS(){you=0;computer=0;document.getElementById('rpsScore').textContent='You: 0 | Computer: 0';document.getElementById('rpsResult').textContent='Score reset. Ready?'}
+</script>
+</body>
+  </html>
