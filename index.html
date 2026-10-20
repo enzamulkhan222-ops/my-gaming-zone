@@ -1,190 +1,390 @@
 
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="bn">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MY GAMING ZONE 3.0</title>
-<style>
-*{box-sizing:border-box}
-body{margin:0;font-family:Arial,sans-serif;background:#101426;color:white;text-align:center}
-header{padding:22px 10px;background:linear-gradient(135deg,#5425cc,#087be8)}
-header h1{margin:5px;font-size:27px}
-nav{display:flex;justify-content:center;gap:8px;padding:12px;background:#191e35;position:sticky;top:0}
-button{border:0;border-radius:9px;padding:11px 15px;background:#653bea;color:white;font-size:15px;cursor:pointer}
-nav button{flex:1;max-width:115px}
-main{padding:16px;max-width:600px;margin:auto}
-.card{background:#1d2541;margin:15px 0;padding:20px 14px;border-radius:15px}
-h2{color:#8ec5ff}
-input{display:block;width:100%;padding:12px;margin:10px 0;border:1px solid #68708b;border-radius:8px;background:#101426;color:white;font-size:16px}
-.gamebtn{margin:5px}
-.result{color:#7dffb1;font-weight:bold;min-height:24px}
-.hidden{display:none}
-footer{padding:20px;color:#bfc8e5}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MY GAMING ZONE 3.0</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #0b1020;
+      color: #fff;
+    }
+    header {
+      padding: 22px 12px;
+      text-align: center;
+      background: linear-gradient(135deg,#6d28d9,#0891b2);
+    }
+    header h1 { margin: 0 0 8px; }
+    nav {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      padding: 12px;
+      background: #141b30;
+    }
+    button, input, textarea {
+      font: inherit;
+      border-radius: 8px;
+      padding: 11px;
+    }
+    button {
+      background: #7c3aed;
+      color: white;
+      border: 0;
+      cursor: pointer;
+    }
+    button:hover { background: #6d28d9; }
+    main { max-width: 900px; margin: auto; padding: 16px; }
+    .card {
+      background: #161f36;
+      border: 1px solid #303c5b;
+      border-radius: 14px;
+      padding: 18px;
+      margin: 14px 0;
+    }
+    .card h2 { color: #67e8f9; margin-top: 0; }
+    input, textarea {
+      width: 100%;
+      margin: 6px 0 12px;
+      background: #0b1020;
+      color: white;
+      border: 1px solid #475569;
+    }
+    textarea { min-height: 90px; }
+    .row { display: flex; flex-wrap: wrap; gap: 8px; }
+    .row button { flex: 1; min-width: 90px; }
+    .result { color: #a7f3d0; min-height: 24px; }
+    .hidden { display: none !important; }
+    .muted { color: #cbd5e1; }
+    footer { text-align: center; padding: 22px; color: #94a3b8; }
+  </style>
 </head>
 <body>
-
 <header>
-<h1>🎮 MY GAMING ZONE 3.0</h1>
-<p>Play • Enjoy • Share</p>
+  <h1>🎮 MY GAMING ZONE 3.0</h1>
+  <p>Play Games • Have Fun • Challenge Yourself</p>
 </header>
 
 <nav>
-<button onclick="showPage('home')">🏠 Home</button>
-<button onclick="referSite()">👥 Refer</button>
-<button onclick="showPage('account')">👤 Account</button>
+  <button onclick="goTo('home')">Home</button>
+  <button onclick="goTo('games')">Games</button>
+  <button onclick="goTo('account')">Account</button>
+  <button onclick="goTo('admin')">Admin Panel</button>
 </nav>
 
 <main>
-<section id="home">
-<h2>Welcome, Gamer!</h2>
+  <section id="home" class="card">
+    <h2>Welcome to My Gaming Zone!</h2>
+    <p>তোমার পছন্দের গেম খেলো এবং নিজের স্কোর বাড়াও।</p>
+    <p id="welcome" class="muted">তুমি এখন লগইন করোনি।</p>
+  </section>
 
-<div class="card">
-<h2>🎯 Tap Challenge</h2>
-<p>১০ সেকেন্ডে যতবার পারো ট্যাপ করো!</p>
-<p>Score: <span id="tapScore">0</span></p>
-<p id="tapTime">সময়: 10 সেকেন্ড</p>
-<button onclick="startTap()">Start Game</button>
-<button onclick="tapNow()">TAP!</button>
-<p class="result" id="tapResult"></p>
-</div>
+  <section id="account" class="card">
+    <h2>🔐 Account</h2>
+    <p class="muted">নতুন অ্যাকাউন্ট তৈরি করো অথবা লগইন করো।</p>
 
-<div class="card">
-<h2>🧠 Number Guess</h2>
-<p>১ থেকে ২০-এর মধ্যে সংখ্যাটি অনুমান করো।</p>
-<input id="guessInput" type="number" min="1" max="20" placeholder="তোমার অনুমান">
-<button onclick="guessNumber()">Guess</button>
-<button onclick="newNumber()">New Game</button>
-<p class="result" id="guessResult"></p>
-</div>
+    <label for="email">Email</label>
+    <input id="email" type="email" placeholder="তোমার ইমেইল" autocomplete="email">
 
-<div class="card">
-<h2>✊ Rock Paper Scissors</h2>
-<p>তোমার পছন্দ বেছে নাও!</p>
-<button class="gamebtn" onclick="playRPS('Rock')">✊ Rock</button>
-<button class="gamebtn" onclick="playRPS('Paper')">✋ Paper</button>
-<button class="gamebtn" onclick="playRPS('Scissors')">✌️ Scissors</button>
-<p class="result" id="rpsResult"></p>
-</div>
-</section>
+    <label for="password">Password</label>
+    <input id="password" type="password" placeholder="কমপক্ষে ৬ অক্ষর" autocomplete="current-password">
 
-<section id="account" class="hidden">
-<div class="card">
-<h2>👤 My Account</h2>
-<p id="accountStatus">Demo mode — কোনো আসল অ্যাকাউন্টে লগইন হয়নি।</p>
+    <div class="row">
+      <button id="registerBtn">Register</button>
+      <button id="loginBtn">Login</button>
+      <button id="logoutBtn" class="hidden">Logout</button>
+    </div>
+    <p id="authMessage" class="result" role="status"></p>
+    <p id="userInfo" class="muted"></p>
+  </section>
 
-<div id="authForm">
-<input id="userName" autocomplete="username" placeholder="তোমার নাম">
-<input id="userEmail" type="email" autocomplete="email" placeholder="Email address">
-<input id="userPassword" type="password" autocomplete="new-password" placeholder="Password">
-<button onclick="demoAuth('signup')">Sign Up</button>
-<button onclick="demoAuth('login')">Login</button>
-<p id="authMessage"></p>
-</div>
+  <section id="games">
+    <div class="card">
+      <h2>⚡ Tap Challenge</h2>
+      <p>১০ সেকেন্ডে যতবার পারো বোতাম চাপো!</p>
+      <p>সময়: <span id="tapTime">10</span> সেকেন্ড</p>
+      <p>স্কোর: <span id="tapScore">0</span></p>
+      <button id="tapStart">Start Challenge</button>
+      <button id="tapButton" disabled>⚡ TAP!</button>
+      <p id="tapResult" class="result"></p>
+    </div>
 
-<div id="profile" class="hidden">
-<p>নাম: <span id="profileName"></span></p>
-<p>এটি শুধু একটি ডেমো প্রোফাইল।</p>
-<button onclick="demoLogout()">Log Out</button>
-</div>
-<p style="font-size:13px;color:#ffc9c9">
-সতর্কতা: এই ডেমোতে আসল নিবন্ধন বা পাসওয়ার্ড যাচাই হয় না।
-</p>
-</div>
-</section>
+    <div class="card">
+      <h2>🔢 Number Guess</h2>
+      <p>১ থেকে ১০-এর মধ্যে একটি সংখ্যা অনুমান করো।</p>
+      <input id="guessInput" type="number" min="1" max="10" placeholder="১–১০">
+      <button id="guessBtn">Guess</button>
+      <p id="guessResult" class="result"></p>
+    </div>
+
+    <div class="card">
+      <h2>✊ Rock Paper Scissors</h2>
+      <p>তোমার পছন্দ নির্বাচন করো।</p>
+      <div class="row">
+        <button data-choice="rock">✊ Rock</button>
+        <button data-choice="paper">✋ Paper</button>
+        <button data-choice="scissors">✌️ Scissors</button>
+      </div>
+      <p id="rpsResult" class="result"></p>
+    </div>
+  </section>
+
+  <section id="admin" class="card hidden">
+    <h2>👑 Admin Panel</h2>
+    <p id="adminStatus" class="muted">Admin অনুমতি যাচাই হচ্ছে...</p>
+
+    <div id="adminTools" class="hidden">
+      <h3>📢 নতুন ঘোষণা</h3>
+      <input id="announcementTitle" maxlength="100" placeholder="ঘোষণার শিরোনাম">
+      <textarea id="announcementText" maxlength="2000"
+        placeholder="ঘোষণার বিস্তারিত লিখো"></textarea>
+      <button id="publishBtn">Publish Announcement</button>
+      <p id="adminMessage" class="result" role="status"></p>
+
+      <h3>তোমার প্রকাশিত ঘোষণা</h3>
+      <div id="announcementList">লোড হচ্ছে...</div>
+    </div>
+  </section>
 </main>
 
 <footer>© 2026 MY GAMING ZONE 3.0</footer>
 
-<script>
-function showPage(page){
- document.getElementById('home').classList.toggle('hidden',page!=='home');
- document.getElementById('account').classList.toggle('hidden',page!=='account');
- window.scrollTo(0,0);
-}
+<script type="module">
+  import { initializeApp } from
+    "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 
-function referSite(){
- const link=location.href;
- if(navigator.share){
-  navigator.share({title:'MY GAMING ZONE 3.0',text:'আমার Gaming Website-এ খেলতে এসো!',url:link}).catch(()=>{});
- }else if(navigator.clipboard && window.isSecureContext){
-  navigator.clipboard.writeText(link).then(()=>alert('ওয়েবসাইটের লিংক কপি হয়েছে! বন্ধুদের পাঠাও।')).catch(()=>prompt('এই লিংক কপি করো:',link));
- }else{
-  prompt('এই লিংক কপি করে বন্ধুদের পাঠাও:',link);
- }
-}
+  import {
+    getAuth, createUserWithEmailAndPassword,
+    signInWithEmailAndPassword, signOut, onAuthStateChanged
+  } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
-let tapCount=0,tapActive=false,tapEnd=0,tapTimer=null;
-function startTap(){
- clearInterval(tapTimer);
- tapCount=0;tapActive=true;tapEnd=Date.now()+10000;
- document.getElementById('tapScore').textContent=0;
- document.getElementById('tapResult').textContent='';
- tapTimer=setInterval(()=>{
-  let left=Math.max(0,Math.ceil((tapEnd-Date.now())/1000));
-  document.getElementById('tapTime').textContent='সময়: '+left+' সেকেন্ড';
-  if(left<=0){
-   clearInterval(tapTimer);tapActive=false;
-   document.getElementById('tapResult').textContent='শেষ! তোমার স্কোর: '+tapCount;
+  import {
+    getFirestore, collection, addDoc, getDocs,
+    query, orderBy, serverTimestamp
+  } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyApQ66t8uv_B6PE6IxcptallW4LC0O_x4A",
+    authDomain: "my-gaming-zone-3.firebaseapp.com",
+    projectId: "my-gaming-zone-3",
+    storageBucket: "my-gaming-zone-3.firebasestorage.app",
+    messagingSenderId: "501829150015",
+    appId: "1:501829150015:web:4e2e9853dd7a5e5cfa5f8a",
+    measurementId: "G-V2QZXJT4RF"
+  };
+
+  const ADMIN_UID = "AzhbpZiKmxbPFjYT6dqp9i1QqOo1";
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const db = getFirestore(app);
+
+  const $ = id => document.getElementById(id);
+  let currentUser = null;
+
+  window.goTo = function(id) {
+    if (id === "admin" && (!currentUser || currentUser.uid !== ADMIN_UID)) {
+      alert("Admin Panel দেখতে Admin অ্যাকাউন্টে Login করো।");
+      id = "account";
+    }
+    $(id).scrollIntoView({ behavior: "smooth" });
+  };
+
+  $("registerBtn").addEventListener("click", async () => {
+    const email = $("email").value.trim();
+    const password = $("password").value;
+    try {
+      await createUserWithEmailAndPassword(auth, email, password);
+      $("authMessage").textContent = "অ্যাকাউন্ট তৈরি হয়েছে!";
+    } catch (e) {
+      $("authMessage").textContent = e.message;
+    }
+  });
+
+  $("loginBtn").addEventListener("click", async () => {
+    const email = $("email").value.trim();
+    const password = $("password").value;
+    try {
+      await signInWithEmailAndPassword(auth, email, password);
+      $("authMessage").textContent = "Login সফল হয়েছে!";
+    } catch (e) {
+      $("authMessage").textContent = "Login হয়নি: " + e.message;
+    }
+  });
+
+  $("logoutBtn").addEventListener("click", async () => {
+    try {
+      await signOut(auth);
+      $("authMessage").textContent = "Logout হয়েছে।";
+    } catch (e) {
+      $("authMessage").textContent = e.message;
+    }
+  });
+
+  onAuthStateChanged(auth, async user => {
+    currentUser = user;
+    $("logoutBtn").classList.toggle("hidden", !user);
+    $("loginBtn").classList.toggle("hidden", !!user);
+    $("registerBtn").classList.toggle("hidden", !!user);
+    $("welcome").textContent = user
+      ? "স্বাগতম: " + user.email
+      : "তুমি এখন লগইন করোনি।";
+    $("userInfo").textContent = user ? "Login করা ইমেইল: " + user.email : "";
+
+    const isAdmin = !!user && user.uid === ADMIN_UID;
+    $("adminTools").classList.toggle("hidden", !isAdmin);
+    $("adminStatus").textContent = isAdmin
+      ? "Admin হিসেবে Login করা হয়েছে।"
+      : "Admin Panel-এর জন্য নির্দিষ্ট Admin অ্যাকাউন্টে Login করো।";
+
+    if (isAdmin) await loadAnnouncements();
+  });
+
+  $("publishBtn").addEventListener("click", async () => {
+    if (!currentUser || currentUser.uid !== ADMIN_UID) {
+      $("adminMessage").textContent = "Admin অনুমতি নেই।";
+      return;
+    }
+
+    const title = $("announcementTitle").value.trim();
+    const message = $("announcementText").value.trim();
+
+    if (!title || !message) {
+      $("adminMessage").textContent = "শিরোনাম ও বিস্তারিত দুটোই লিখো।";
+      return;
+    }
+
+    try {
+      await addDoc(collection(db, "announcements"), {
+        title,
+        message,
+        createdAt: serverTimestamp(),
+        createdBy: currentUser.uid
+      });
+      $("announcementTitle").value = "";
+      $("announcementText").value = "";
+      $("adminMessage").textContent = "ঘোষণা সংরক্ষিত হয়েছে।";
+      await loadAnnouncements();
+    } catch (e) {
+      $("adminMessage").textContent =
+        "সংরক্ষণ হয়নি। Firestore Rules পরীক্ষা করো: " + e.message;
+    }
+  });
+
+  async function loadAnnouncements() {
+    try {
+      const q = query(
+        collection(db, "announcements"),
+        orderBy("createdAt", "desc")
+      );
+      const snapshot = await getDocs(q);
+      const list = $("announcementList");
+      list.replaceChildren();
+
+      if (snapshot.empty) {
+        list.textContent = "এখনো কোনো ঘোষণা নেই।";
+        return;
+      }
+
+      snapshot.forEach(docSnap => {
+        const data = docSnap.data();
+        const box = document.createElement("div");
+        box.className = "card";
+
+        const heading = document.createElement("h3");
+        heading.textContent = data.title || "ঘোষণা";
+        const body = document.createElement("p");
+        body.textContent = data.message || "";
+
+        box.append(heading, body);
+        list.append(box);
+      });
+    } catch (e) {
+      $("announcementList").textContent =
+        "ঘোষণা লোড হয়নি। Rules অনুমতি পরীক্ষা করতে হবে।";
+    }
   }
- },100);
-}
-function tapNow(){
- if(!tapActive)return;
- tapCount++;
- document.getElementById('tapScore').textContent=tapCount;
-}
 
-let secret=1;
-function newNumber(){
- secret=Math.floor(Math.random()*20)+1;
- document.getElementById('guessInput').value='';
- document.getElementById('guessResult').textContent='নতুন সংখ্যা তৈরি হয়েছে!';
-}
-function guessNumber(){
- let val=Number(document.getElementById('guessInput').value);
- let out=document.getElementById('guessResult');
- if(!val||val<1||val>20){out.textContent='১ থেকে ২০-এর সংখ্যা লেখো।';return}
- if(val===secret){out.textContent='🎉 সঠিক! তুমি জিতে গেছ!';}
- else if(val<secret){out.textContent='আরও বড় সংখ্যা চেষ্টা করো!';}
- else{out.textContent='আরও ছোট সংখ্যা চেষ্টা করো!';}
-}
-newNumber();
+  // Tap Challenge
+  let tapCount = 0;
+  let tapActive = false;
+  let tapRemaining = 10;
+  let tapTimer = null;
 
-function playRPS(user){
- const options=['Rock','Paper','Scissors'];
- const computer=options[Math.floor(Math.random()*3)];
- let result=user===computer?'ড্র!':(
-  (user==='Rock'&&computer==='Scissors')||
-  (user==='Paper'&&computer==='Rock')||
-  (user==='Scissors'&&computer==='Paper')
-  ?'তুমি জিতেছ! 🎉':'কম্পিউটার জিতেছে!'
- );
- document.getElementById('rpsResult').textContent=
- 'তুমি: '+user+' | কম্পিউটার: '+computer+' — '+result;
-}
+  $("tapStart").addEventListener("click", () => {
+    clearInterval(tapTimer);
+    tapCount = 0;
+    tapRemaining = 10;
+    tapActive = true;
+    $("tapScore").textContent = "0";
+    $("tapTime").textContent = "10";
+    $("tapResult").textContent = "";
+    $("tapButton").disabled = false;
+    $("tapStart").disabled = true;
 
-// নিরাপদ ডেমো: কোনো পাসওয়ার্ড বা অ্যাকাউন্ট সংরক্ষণ করে না।
-function demoAuth(type){
- const name=document.getElementById('userName').value.trim();
- const email=document.getElementById('userEmail').value.trim();
- const password=document.getElementById('userPassword').value;
- const msg=document.getElementById('authMessage');
- if(!name||!email||!password){
-  msg.textContent='নাম, ইমেইল ও পাসওয়ার্ডের ঘর পূরণ করো।';
-  return;
- }
- msg.textContent=type==='signup'
-  ?'ডেমো ফর্ম কাজ করছে। আসল Sign Up-এর জন্য Authentication যুক্ত করতে হবে।'
-  :'ডেমো ফর্ম কাজ করছে। আসল Login-এর জন্য Authentication যুক্ত করতে হবে।';
- document.getElementById('userPassword').value='';
-}
-function demoLogout(){
- document.getElementById('profile').classList.add('hidden');
- document.getElementById('authForm').classList.remove('hidden');
- document.getElementById('accountStatus').textContent='Demo mode — কোনো আসল অ্যাকাউন্টে লগইন হয়নি।';
-}
+    tapTimer = setInterval(() => {
+      tapRemaining--;
+      $("tapTime").textContent = tapRemaining;
+      if (tapRemaining <= 0) {
+        clearInterval(tapTimer);
+        tapActive = false;
+        $("tapButton").disabled = true;
+        $("tapStart").disabled = false;
+        $("tapResult").textContent = "শেষ! তোমার স্কোর: " + tapCount;
+      }
+    }, 1000);
+  });
+
+  $("tapButton").addEventListener("click", () => {
+    if (!tapActive) return;
+    tapCount++;
+    $("tapScore").textContent = tapCount;
+  });
+
+  // Number Guess
+  let secretNumber = Math.floor(Math.random() * 10) + 1;
+  $("guessBtn").addEventListener("click", () => {
+    const guess = Number($("guessInput").value);
+    if (!Number.isInteger(guess) || guess < 1 || guess > 10) {
+      $("guessResult").textContent = "১ থেকে ১০-এর মধ্যে সংখ্যা দাও।";
+      return;
+    }
+    if (guess === secretNumber) {
+      $("guessResult").textContent = "🎉 ঠিক ধরেছ! নতুন সংখ্যা তৈরি হয়েছে।";
+      secretNumber = Math.floor(Math.random() * 10) + 1;
+    } else {
+      $("guessResult").textContent =
+        guess < secretNumber ? "আরও বড় সংখ্যা চেষ্টা করো।" : "আরও ছোট সংখ্যা চেষ্টা করো।";
+    }
+  });
+
+  // Rock Paper Scissors
+  document.querySelectorAll("[data-choice]").forEach(button => {
+    button.addEventListener("click", () => {
+      const choices = ["rock", "paper", "scissors"];
+      const yours = button.dataset.choice;
+      const computer = choices[Math.floor(Math.random() * 3)];
+      let result;
+
+      if (yours === computer) result = "ড্র!";
+      else if (
+        (yours === "rock" && computer === "scissors") ||
+        (yours === "paper" && computer === "rock") ||
+        (yours === "scissors" && computer === "paper")
+      ) result = "তুমি জিতেছ! 🎉";
+      else result = "কম্পিউটার জিতেছে!";
+
+      $("rpsResult").textContent =
+        "তুমি: " + yours + " | কম্পিউটার: " + computer + " — " + result;
+    });
+  });
 </script>
 </body>
-</html>
+ </html>
+     
